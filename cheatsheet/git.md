@@ -39,15 +39,6 @@ git push --force (evite ao máximo)
 1. existe a primeira edição de um livro do scott chacon sobre o git que foi traduzido pelo Eric Douglas, você pode baixar de graça ou dar uns trocados pra ele: https://leanpub.com/pro-git
 1. use alias do proprio git ou do bash, configure assim: 
 
-## tattuagens
-
-half life (lambda, g man)
-sandman 
-berserk (cao, marca)
-vagabond
-dark souls
-programacao (so, )
-
 ##
 
 resetar todos os arquivo como era antes: git reset --hard HEAD
