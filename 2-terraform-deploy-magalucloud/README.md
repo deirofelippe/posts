@@ -1,4 +1,6 @@
-A idéia desse projeto é executar o docker compose que tem a aplicação backend (feito em Python e Flask) e o banco de dados na Máquina Virtual da Magalu Cloud.
+# Terraform e Deploy: Virtual Machine e Security Group na Magalu Cloud
+
+A ideia desse projeto é provisionar, com Terraform, uma virtual machine e security groups na Magalu Cloud e fazer o deploy do docker compose para executar o backend (feito em Python e Flask) e banco de dados (PostgreSQL).
 
 O repositório no github para ver o código do [terraform](https://github.com/deirofelippe/magalucloud-terraform/tree/main/terraform).
 
@@ -12,6 +14,7 @@ O repositório no github para ver o código do [terraform](https://github.com/de
   - [Output](#output)
 - [Docker Compose](#docker-compose)
 - [Criação da infra e Deploy](#criação-da-infra-e-deploy)
+- [Conclusão](#conclusão)
 
 ## Ferramentas
 
@@ -307,3 +310,9 @@ Na documentação do docker, você vai encontrar explicação mais detalhada sob
    ![Fazendo requisição com Rest Client para busca de lançamentos](./images/img-6.png)
 
 1. Ao final destrua os recursos criados `terraform -chdir=./terraform destroy -auto-approve`.
+
+## Conclusão
+
+Obrigado pela leitura :)
+
+Repositório do projeto: [https://github.com/deirofelippe/magalucloud-terraform](https://github.com/deirofelippe/magalucloud-terraform)
