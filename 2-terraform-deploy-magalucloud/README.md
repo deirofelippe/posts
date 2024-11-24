@@ -1,5 +1,3 @@
-# Vitual Machine e Security Groups com Terraform na Magalu Cloud e Deploy
-
 A idéia desse projeto é executar o docker compose que tem a aplicação backend (feito em Python e Flask) e o banco de dados na Máquina Virtual da Magalu Cloud.
 
 O repositório no github para ver o código do [terraform](https://github.com/deirofelippe/magalucloud-terraform/tree/main/terraform).
@@ -31,7 +29,7 @@ O repositório no github para ver o código do [terraform](https://github.com/de
 
 As referências que cada recurso recebe do outro está resumida no desenho abaixo.
 
-![](./images/img-3.png)
+![Caixas que representam os recursos e as referência que recebe em forma de seta](./images/img-3.png)
 
 ### Provider
 
@@ -265,11 +263,11 @@ O healthcheck irá testar (`test`) a saúde do container criado com o comando `c
 
 O funcionamento do interval, retry e timeout está melhor explicada na imagem abaixo.
 
-![](./images/img-1.png)
+![Linha do tempo e a posição do interval, retry e timeout mostrando sua ordem](./images/img-1.png)
 
 Antes de começar os testes e dizer o estado do container, o docker espera 30s para a aplicação iniciar (`start_period`), mas testes serão feitos durante o `start_period` em um espaço de 5s (`start_interval`) entre cada teste. Se a aplicação responder positivamente, ela será considerada saudável e sairá do start_period, caso contrário, o container ainda não será considerado como unhealthy, pois ainda está não passou o tempo do start_period.
 
-![](./images/img-2.png)
+![Linha do tempo e a posição do start_period, start_interval e test mostrando sua ordem](./images/img-2.png)
 
 Na documentação do docker, você vai encontrar explicação mais detalhada sobre o [depends_on](https://docs.docker.com/compose/how-tos/startup-order/) e o healthcheck([aqui](https://docs.docker.com/reference/compose-file/services/#healthcheck), [aqui](https://docs.docker.com/reference/dockerfile/#healthcheck) e [aqui](https://docs.docker.com/reference/compose-file/extension/#specifying-durations)).
 
@@ -290,7 +288,7 @@ Na documentação do docker, você vai encontrar explicação mais detalhada sob
 
 1. Copie o IP público gerado e cole nos comandos abaixo, trocando o `<IP-PÚBLICO>` e execute-os.
 
-   ![](./images/img-4.png)
+   ![IP público gerado e mostrando onde fica no terminal](./images/img-4.png)
 
 1. Teste o acesso com o comando `ssh -i ./mgc_ssh_key -p 22 ubuntu@<IP-PÚBLICO>`
 
@@ -304,8 +302,8 @@ Na documentação do docker, você vai encontrar explicação mais detalhada sob
 
 1. No arquivo [./requests.http](https://github.com/deirofelippe/magalucloud-terraform/blob/main/requests.http) do repositório, possui as requests que podem ser feitas.
 
-   ![](./images/img-5.png)
+   ![Fazendo requisição com Rest Client para criação de lançamento](./images/img-5.png)
 
-   ![](./images/img-6.png)
+   ![Fazendo requisição com Rest Client para busca de lançamentos](./images/img-6.png)
 
 1. Ao final destrua os recursos criados `terraform -chdir=./terraform destroy -auto-approve`.
