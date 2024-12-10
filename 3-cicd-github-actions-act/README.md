@@ -320,13 +320,24 @@ Como fiz a instalação usando o GitHub CLI, é só executar o comando `gh exten
 
 Vamos entender o que cada flag significa:
 
-- `--directory` ou `-C` é o diretório onde está o diretório .github
-- `--job` ou `-j` é o job especifico que deseja executar. Sim, se eu quiser, posso executar somente o job build, porem se tiver a keyword `needs`, deve ser comentada senão suas dependências serão executadas.
-- `--secret-file` é o arquivo no formato .env que será usado como secrets para ser acessado usando `${{ secrets.VARIAVEL }}`
+- `--directory` ou `-C` é o diretório onde está o diretório .github.
+- `--job` ou `-j` é o job específico que deseja executar. Sim, se eu quiser, posso executar somente o job build, porem se tiver a keyword `needs`, deve ser comentada senão suas dependências serão executadas.
+- `--secret-file` é o arquivo no formato .env que será usado como secrets para ser acessado usando `${{ secrets.VARIAVEL }}`.
+
+Executar sem a flag `--job`, significa que toda a pipeline será executada.
 
 ![](./images/img-1.png)
 
 ![](./images/act.gif)
+
+Outras flags:
+
+- `--graph` mostra a ordem de execução dos jobs em fromato de grafo
+- `--list` ou `-l` mostra os jobs, workflows e events associados
+
+![](./images/img-2.png)
+
+![](./images/img-3.png)
 
 ## Conclusão
 
