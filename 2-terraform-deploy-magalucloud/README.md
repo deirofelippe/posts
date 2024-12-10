@@ -12,7 +12,6 @@ O repositório no github para ver o código do [terraform](https://github.com/de
   - [Virtual Machine](#virtual-machine)
   - [Security Group](#security-group)
   - [Output](#output)
-- [Docker Compose](#docker-compose)
 - [Criação da infra e Deploy](#criação-da-infra-e-deploy)
 - [Conclusão](#conclusão)
 
@@ -228,51 +227,6 @@ output "public_ip" {
 ```
 
 No fim do provisionamento da infraestrutura, será exibido pelo `output` o IP público, através do campo `public_address`, gerado para o acesso à máquina virtual.
-
-## Docker Compose
-
-Farei uma breve explicação sobre o serviço do backend das funcionalidades mais importantes usadas.
-
-```docker
-backend:
-  image: deirofelippe/magalucloud-terraform:v1.1
-  container_name: backend
-  ports:
-    - "3000:3000"
-  restart: always
-  env_file:
-    - ./.env
-  depends_on:
-    database:
-      condition: service_healthy
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
-    interval: 5s
-    retries: 5
-    timeout: 5s
-    start_period: 30s
-    start_interval: 5s
-```
-
-A imagem `deirofelippe/magalucloud-terraform:v1.1` usada, pode ser acessada no [Docker Hub](https://hub.docker.com/r/deirofelippe/magalucloud-terraform), contém o código do backend.
-
-O atributo `restart` com o valor `always` irá reiniciar o container sempre que ele der erro e finalizar a aplicação.
-
-O docker compose vai injetar variáveis de ambiente no container usando o `env_file`, essa abordagem é mais dinâmica e mais segura que por as variáveis na imagem ou declará-las no atributo `environment`.
-
-O `depends_on` diz que irá criar o container `backend` depois que a condição (`condition`) do serviço `database` estiver saudável (`service_healthy`). Essa verificação de saúde do serviço será feito pelo atributo `healthcheck` no serviço do banco de dados.
-
-O healthcheck irá testar (`test`) a saúde do container criado com o comando `curl -f http://localhost:3000/healthz`. Esse comando irá fazer uma requisição para a rota /healthz e vai esperar status code 2XX como resposta. A implementação dessa rota faz acesso ao banco de dados e caso ocorra tudo certo, irá retornar status code 200. Se a aplicação não responder em um espaço de tempo de 5s (`timeout`), será considerado uma falha e todo o processo irá se repetir 5 vezes (`retries`) em um espaço de tempo entre cada tentativa de 5s (`interval`). Caso os testes não passem, o container será considerado como `unhealthy`.
-
-O funcionamento do interval, retry e timeout está melhor explicada na imagem abaixo.
-
-![Linha do tempo e a posição do interval, retry e timeout mostrando sua ordem](./images/img-1.png)
-
-Antes de começar os testes e dizer o estado do container, o docker espera 30s para a aplicação iniciar (`start_period`), mas testes serão feitos durante o `start_period` em um espaço de 5s (`start_interval`) entre cada teste. Se a aplicação responder positivamente, ela será considerada saudável e sairá do start_period, caso contrário, o container ainda não será considerado como unhealthy, pois ainda está não passou o tempo do start_period.
-
-![Linha do tempo e a posição do start_period, start_interval e test mostrando sua ordem](./images/img-2.png)
-
-Na documentação do docker, você vai encontrar explicação mais detalhada sobre o [depends_on](https://docs.docker.com/compose/how-tos/startup-order/) e o healthcheck([aqui](https://docs.docker.com/reference/compose-file/services/#healthcheck), [aqui](https://docs.docker.com/reference/dockerfile/#healthcheck) e [aqui](https://docs.docker.com/reference/compose-file/extension/#specifying-durations)).
 
 ## Criação da infra e Deploy
 
