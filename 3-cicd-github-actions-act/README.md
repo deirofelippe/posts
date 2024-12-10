@@ -1,4 +1,4 @@
-# CI/CD com GitHub Actions: teste local com Act, usando container e alertas com Telegram.
+# CI/CD com GitHub Actions e teste local com Act
 
 O uso de pipeline é util para automatizar o processo de deploy, executar testes automatizados, agendar tarefas, fazer verificação de segurança e muitos outros. Qualquer coisa que você queira executar de forma automática, consegue com uma pipeline.
 
@@ -24,7 +24,6 @@ O arquivo completo da pipeline pode ser vista [aqui](https://github.com/deirofel
   - [Job Notify Success](#job-notify-success)
   - [Job Notify Failure](#job-notify-failure)
 - [Simulando o GitHub Actions com Act localmente](#simulando-o-github-actions-com-act-localmente)
-- [Usando o GitHub](#usando-o-github)
 - [Conclusão](#conclusão)
 
 ## Workflow
@@ -325,25 +324,9 @@ Vamos entender o que cada flag significa:
 - `--job` ou `-j` é o job especifico que deseja executar. Sim, se eu quiser, posso executar somente o job build, porem se tiver a keyword `needs`, deve ser comentada senão suas dependências serão executadas.
 - `--secret-file` é o arquivo no formato .env que será usado como secrets para ser acessado usando `${{ secrets.VARIAVEL }}`
 
+![](./images/img-1.png)
+
 ![](./images/act.gif)
-
-## Usando o GitHub
-
-Para a pipeline ser executada no GitHub é só ter o arquivo comitado e fazer o push, porem deve ser configurado os secrets.
-
-### Criando o secrets
-
-![](./images/img-7.png)
-
-![](./images/img-8.png)
-
-![](./images/img-9.png)
-
-![](./images/img-10.png)
-
-### Acesando a pipeline em execução no GitHub
-
-![](./images/pipeline-gh.gif)
 
 ## Conclusão
 
